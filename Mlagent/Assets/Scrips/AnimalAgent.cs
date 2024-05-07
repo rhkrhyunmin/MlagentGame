@@ -12,6 +12,8 @@ public class AnimalAgent : Agent
     public Transform _goalTrm;
     public Transform _startTrm;
 
+    private float timer;
+
     private CharacterController characterController;
     private Rigidbody _rigid;
 
@@ -21,6 +23,7 @@ public class AnimalAgent : Agent
 
     public override void Initialize()
     {
+
         characterController = GetComponent<CharacterController>();
         _rigid = GetComponent<Rigidbody>();
     }
@@ -56,10 +59,26 @@ public class AnimalAgent : Agent
             turnAmount = 1;
         }
 
-        _rigid.MovePosition(transform.position + transform.forward * forwardAmount * moveSpeed * Time.fixedDeltaTime);
-        Debug.Log(forwardAmount);
-        transform.Rotate(Vector3.up * turnAmount * 100 * Time.fixedDeltaTime);
+        // 에이전트가 가장 가까운 타겟을 향해 이동하도록 합니다.
+        if (_goalTrm != null)
+        {
+            Vector3 targetDirection = _goalTrm.transform.position - transform.position;
+            transform.rotation = Quaternion.LookRotation(targetDirection);
+            _rigid.velocity = transform.forward * moveSpeed;
+        }
+        Debug.Log(GetCumulativeReward());
+        AddReward(-1f / MaxStep);
 
+        //StartCoroutine(AddNegativeRewardCoroutine());
+    }
+
+    IEnumerator AddNegativeRewardCoroutine()
+    {
+        while (true)
+        {
+            AddReward(-0.1f); // 보상으로 -1을 적용
+            yield return new WaitForSeconds(1f); // 1초 대기
+        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -84,18 +103,23 @@ public class AnimalAgent : Agent
     {
         if (collision.gameObject.CompareTag("OBJ"))
         {
-            EatFish(collision.gameObject);
+            //EatFish(collision.gameObject);
         }
-        else if (collision.gameObject.CompareTag("Goal"))
+       if(HasReachedGoal())
         {
-             AddReward(1f);
+            EndEpisode();
         }
+    }
+    private bool HasReachedGoal()
+    {
+        float distanceToGoal = Vector3.Distance(transform.position, _goalTrm.position);
+        Debug.Log(distanceToGoal);
+        if(distanceToGoal < 1.5f)
+        {
+            AddReward(1f);
+        }
+        return distanceToGoal < 0.5f;
     }
 
-    private void EatFish(GameObject fishObject)
-    {
-        if (isFull) return;
-        isFull = true;
-    }
 
 }
