@@ -66,7 +66,7 @@ public class AnimalAgent : Agent
             transform.rotation = Quaternion.LookRotation(targetDirection);
             _rigid.velocity = transform.forward * moveSpeed;
         }
-        Debug.Log(GetCumulativeReward());
+        //Debug.Log(GetCumulativeReward());
         AddReward(-1f / MaxStep);
 
         //StartCoroutine(AddNegativeRewardCoroutine());

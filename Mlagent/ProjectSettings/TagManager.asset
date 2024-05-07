@@ -37,6 +37,7 @@ TagManager:
   - switchOff
   - plus
   - OBJ
+  - Buger
   layers:
   - Default
   - TransparentFX
