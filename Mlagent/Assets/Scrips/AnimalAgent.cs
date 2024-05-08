@@ -9,36 +9,35 @@ using UnityEngine.AI;
 public class AnimalAgent : Agent
 {
     public float moveSpeed = 5f;
-    public Transform _goalTrm;
-    public Transform _startTrm;
+    public float turnSpeed = 180f;
+    public GameObject heartPrefab;
+    public GameObject regurgitatedFishPrefab;
 
-    private float timer;
-
-    private CharacterController characterController;
-    private Rigidbody _rigid;
-
-    private GameObject babyPenguin;
+    private AnimalArea animalArea;
+    private new Rigidbody rigidbody;
+    //private GameObject babyPenguin;
 
     private bool isFull;
 
     public override void Initialize()
     {
-
-        characterController = GetComponent<CharacterController>();
-        _rigid = GetComponent<Rigidbody>();
+        animalArea = transform.parent.Find("AnmalArea").GetComponent<AnimalArea>();
+        //babyPenguin = animalArea.penguinBaby;
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     public override void OnEpisodeBegin()
     {
-        
+        isFull = false;
+        animalArea.ResetArea();
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        // ???????? ?????? 8?????.
-        //sensor.AddObservation(isFull);
-        sensor.AddObservation(Vector3.Distance(transform.position, _goalTrm.transform.position));
-        sensor.AddObservation((_goalTrm.transform.position - transform.position).normalized);
+        // 관측값의 개수는 8개이다.
+        sensor.AddObservation(isFull);
+        //sensor.AddObservation(Vector3.Distance(transform.position, babyPenguin.transform.position));
+        //sensor.AddObservation((babyPenguin.transform.position - transform.position).normalized);
         sensor.AddObservation(transform.forward);
     }
     public override void OnActionReceived(ActionBuffers actions)
@@ -59,26 +58,11 @@ public class AnimalAgent : Agent
             turnAmount = 1;
         }
 
-        // 에이전트가 가장 가까운 타겟을 향해 이동하도록 합니다.
-        if (_goalTrm != null)
-        {
-            Vector3 targetDirection = _goalTrm.transform.position - transform.position;
-            transform.rotation = Quaternion.LookRotation(targetDirection);
-            _rigid.velocity = transform.forward * moveSpeed;
-        }
-        //Debug.Log(GetCumulativeReward());
+        rigidbody.MovePosition(transform.position + transform.forward * forwardAmount * moveSpeed * Time.fixedDeltaTime);
+        transform.Rotate(Vector3.up * turnAmount * turnSpeed * Time.fixedDeltaTime);
+
         AddReward(-1f / MaxStep);
 
-        //StartCoroutine(AddNegativeRewardCoroutine());
-    }
-
-    IEnumerator AddNegativeRewardCoroutine()
-    {
-        while (true)
-        {
-            AddReward(-0.1f); // 보상으로 -1을 적용
-            yield return new WaitForSeconds(1f); // 1초 대기
-        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -101,25 +85,45 @@ public class AnimalAgent : Agent
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("OBJ"))
+        if (collision.gameObject.CompareTag("food"))
         {
-            //EatFish(collision.gameObject);
+            EatFish(collision.gameObject);
         }
-       if(HasReachedGoal())
+        /*else if (collision.gameObject.CompareTag("BABY_PENGUIN"))
+        {
+            RegurgitateFish();
+        }*/
+    }
+
+    private void EatFish(GameObject fishObject)
+    {
+        if (isFull) return;
+        isFull = true;
+
+        //animalArea.RemoveFishInList(fishObject);
+        AddReward(1f);
+    }
+
+/*    private void RegurgitateFish()
+    {
+        if (!isFull) return;
+        isFull = false;
+
+        GameObject regurgitatedFish = Instantiate(regurgitatedFishPrefab);
+        regurgitatedFish.transform.parent = transform.parent;
+        regurgitatedFish.transform.localPosition = babyPenguin.transform.localPosition + Vector3.up * 0.01f;
+        Destroy(regurgitatedFish, 4f);
+
+        GameObject heart = Instantiate(heartPrefab);
+        heart.transform.parent = transform.parent;
+        heart.transform.localPosition = babyPenguin.transform.localPosition + Vector3.up;
+        Destroy(heart, 4f);
+
+        AddReward(1f);
+
+        if (animalArea.remainingFish <= 0)
         {
             EndEpisode();
         }
-    }
-    private bool HasReachedGoal()
-    {
-        float distanceToGoal = Vector3.Distance(transform.position, _goalTrm.position);
-        Debug.Log(distanceToGoal);
-        if(distanceToGoal < 1.5f)
-        {
-            AddReward(1f);
-        }
-        return distanceToGoal < 0.5f;
-    }
-
-
+    }*/
 }

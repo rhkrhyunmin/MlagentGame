@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 195344484862888092}
   m_Layer: 0
   m_Name: Gorilla Silver
-  m_TagString: Untagged
+  m_TagString: food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,17 +30,18 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791417161093438}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4016865072809013543}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &95965394852885200
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -53,10 +54,12 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!143 &143919671825970238
 CharacterController:
   m_ObjectHideFlags: 0
@@ -65,9 +68,17 @@ CharacterController:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791417161093438}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Height: 4.99
   m_Radius: 1.69
   m_SlopeLimit: 45
@@ -198,8 +209,17 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791417161093438}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 1.16
   m_Height: 3.15
   m_Direction: 2
@@ -293,11 +313,16 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 4881015361083092}
     m_Modifications:
     - target: {fileID: 100028, guid: d95ed182d9f65694aabeca6cd16cd30a, type: 3}
       propertyPath: m_Name
       value: Gorilla_Rig
+      objectReference: {fileID: 0}
+    - target: {fileID: 400028, guid: d95ed182d9f65694aabeca6cd16cd30a, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400028, guid: d95ed182d9f65694aabeca6cd16cd30a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -312,6 +337,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400028, guid: d95ed182d9f65694aabeca6cd16cd30a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400028, guid: d95ed182d9f65694aabeca6cd16cd30a, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -322,14 +351,6 @@ PrefabInstance:
     - target: {fileID: 400028, guid: d95ed182d9f65694aabeca6cd16cd30a, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400028, guid: d95ed182d9f65694aabeca6cd16cd30a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400028, guid: d95ed182d9f65694aabeca6cd16cd30a, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400028, guid: d95ed182d9f65694aabeca6cd16cd30a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -348,10 +369,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 02cbce4974db8f445b049856c4abbfc3, type: 2}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d95ed182d9f65694aabeca6cd16cd30a, type: 3}
 --- !u!4 &4016865072809013543 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400028, guid: d95ed182d9f65694aabeca6cd16cd30a,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 400028, guid: d95ed182d9f65694aabeca6cd16cd30a, type: 3}
   m_PrefabInstance: {fileID: 4016865072808881083}
   m_PrefabAsset: {fileID: 0}

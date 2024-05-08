@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 195741365783114180}
   m_Layer: 0
   m_Name: Tucan
-  m_TagString: Untagged
+  m_TagString: food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,17 +29,18 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390276149824892}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8447037616931900524}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &95710898174003270
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -52,10 +53,12 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!143 &143354740421953482
 CharacterController:
   m_ObjectHideFlags: 0
@@ -64,9 +67,17 @@ CharacterController:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390276149824892}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Height: 2
   m_Radius: 1.06
   m_SlopeLimit: 45
@@ -278,11 +289,16 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 4635908456063474}
     m_Modifications:
     - target: {fileID: 100102, guid: 242952bc1b96408489650997c774dc33, type: 3}
       propertyPath: m_Name
       value: Tucan_Rig
+      objectReference: {fileID: 0}
+    - target: {fileID: 400102, guid: 242952bc1b96408489650997c774dc33, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400102, guid: 242952bc1b96408489650997c774dc33, type: 3}
       propertyPath: m_LocalPosition.x
@@ -297,6 +313,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400102, guid: 242952bc1b96408489650997c774dc33, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400102, guid: 242952bc1b96408489650997c774dc33, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -307,14 +327,6 @@ PrefabInstance:
     - target: {fileID: 400102, guid: 242952bc1b96408489650997c774dc33, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400102, guid: 242952bc1b96408489650997c774dc33, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400102, guid: 242952bc1b96408489650997c774dc33, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400102, guid: 242952bc1b96408489650997c774dc33, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -333,10 +345,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: efed3de9ad8e4ec458d526afe3c4af17, type: 2}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 242952bc1b96408489650997c774dc33, type: 3}
 --- !u!4 &8447037616931900524 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400102, guid: 242952bc1b96408489650997c774dc33,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 400102, guid: 242952bc1b96408489650997c774dc33, type: 3}
   m_PrefabInstance: {fileID: 8447037616931509898}
   m_PrefabAsset: {fileID: 0}
